@@ -1,15 +1,13 @@
-# Project [00] #AIAugustAppADay: [Project name]
+# Project 01 #AIAugustAppADay: AI-Powered To-Do List
 
-![Last Commit](https://img.shields.io/github/last-commit/davedonnellydev/nextjs-typescript-mantine-starter)  
+![Last Commit](https://img.shields.io/github/last-commit/davedonnellydev/ai-august-2025-01)  
 
-**📆 Date**: *[Project build date here]*  
-**🎯 Project Objective**: *[Write up any project objectives here]*   
-**🚀 Features**: *[Main features for MVP]*  
-**🛠️ Tech used**: *[Main tech used, including links to libraries/APIs]*  
+**📆 Date**: 01/Aug/2025  
+**🎯 Project Objective**: Build a to-do list app that uses AI to suggest tasks based on user goals or previous entries.   
+**🚀 Features**: Suggest a task goal, OpenAI splits it into tasks; Able to mark as done, delete, edit; Persist tasks (localStorage is fine for MVP)  
+**🛠️ Tech used**: Next.js, TypeScript, OpenAI API  
 **▶️ Live Demo**: *[https://your-demo-url.com](https://your-demo-url.com)*  
 *(Link will be added after deployment)*  
-
-**🏁 Starter repo**: [Next.js TypeScript Mantine starter](https://github.com/davedonnellydev/nextjs-typescript-mantine-starter)  
 
 ## 🗒️ Summary
 **Lessons learned**  
@@ -26,7 +24,7 @@ This project has been built as part of my AI August App-A-Day Challenge. You can
 
 ## 🧪 Testing
 
-![CI](https://github.com/davedonnellydev/nextjs-typescript-mantine-starter/actions/workflows/npm_test.yml/badge.svg) *[Link should be amended so that correct repo is specified]*  
+![CI](https://github.com/davedonnellydev/ai-august-2025-01/actions/workflows/npm_test.yml/badge.svg)  
 *Note: Test suite runs automatically with each push/merge.*  
 
 ## Quick Start
@@ -115,10 +113,5 @@ import { Component } from '@/components/Component';  // instead of '../../../com
 
 
 ## 📜 License
-![GitHub License](https://img.shields.io/github/license/davedonnellydev/nextjs-typescript-mantine-starter)  
+![GitHub License](https://img.shields.io/github/license/davedonnellydev/ai-august-2025-01)  
 This project is licensed under the MIT License.  
-
-
-## Mantine Next.js template
-
-This is a template based off the [Mantine Next.js template](https://github.com/mantinedev/next-app-template).  
