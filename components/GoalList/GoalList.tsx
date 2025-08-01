@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Text, Button, Stack, Title } from '@mantine/core';
+import { Button, Stack, Text, Title } from '@mantine/core';
 import { Goal } from '@/app/lib/api/types';
 
 interface GoalListProps {
@@ -30,13 +30,11 @@ export function GoalList({ onGoalSelect, onGoalsUpdate }: GoalListProps) {
     const now = new Date().toISOString();
 
     // Find the highest Untitled number
-    const untitledGoals = goals.filter(goal =>
-      goal.current_goal_name?.startsWith('Untitled_')
-    );
+    const untitledGoals = goals.filter((goal) => goal.current_goal_name?.startsWith('Untitled_'));
 
     let nextNumber = 1;
     if (untitledGoals.length > 0) {
-      const numbers = untitledGoals.map(goal => {
+      const numbers = untitledGoals.map((goal) => {
         const match = goal.current_goal_name?.match(/Untitled_(\d+)/);
         return match ? parseInt(match[1]) : 0;
       });
@@ -51,7 +49,7 @@ export function GoalList({ onGoalSelect, onGoalsUpdate }: GoalListProps) {
       current_goal_prompt_created_datetime: now,
       previous_goal_prompts: [],
       order: goals.length + 1,
-      created_datetime: now
+      created_datetime: now,
     };
 
     console.log('Creating new goal:', newGoal);
@@ -86,7 +84,9 @@ export function GoalList({ onGoalSelect, onGoalsUpdate }: GoalListProps) {
 
   return (
     <div style={{ padding: '20px' }}>
-      <Title order={3} mb="md">Goals</Title>
+      <Title order={3} mb="md">
+        Goals
+      </Title>
 
       <Stack gap="sm">
         {goals.length > 0 ? (
@@ -101,7 +101,9 @@ export function GoalList({ onGoalSelect, onGoalsUpdate }: GoalListProps) {
             </Text>
           ))
         ) : (
-          <Text size="sm" c="dimmed">No goals yet</Text>
+          <Text size="sm" c="dimmed">
+            No goals yet
+          </Text>
         )}
 
         <Button

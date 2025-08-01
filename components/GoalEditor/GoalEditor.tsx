@@ -1,10 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { TextInput, Textarea, Button, Stack, Text } from '@mantine/core';
+import { Button, Stack, Text, Textarea, TextInput } from '@mantine/core';
 import { Goal, TaskListResponse } from '@/app/lib/api/types';
 import { ClientRateLimiter } from '@/app/lib/utils/api-helpers';
-
 
 interface GoalEditorProps {
   selectedGoal: Goal | null;
@@ -19,10 +18,10 @@ export function GoalEditor({ selectedGoal, onGoalUpdate, onTaskListResponse }: G
   const [error, setError] = useState('');
   const [remainingRequests, setRemainingRequests] = useState(0);
 
-// Update remaining requests on component mount and after translations
-useEffect(() => {
+  // Update remaining requests on component mount and after translations
+  useEffect(() => {
     setRemainingRequests(ClientRateLimiter.getRemainingRequests());
-    }, []);
+  }, []);
 
   useEffect(() => {
     if (selectedGoal) {
@@ -39,7 +38,7 @@ useEffect(() => {
     if (selectedGoal) {
       const updatedGoal = {
         ...selectedGoal,
-        current_goal_name: value
+        current_goal_name: value,
       };
       console.log('Updating goal name:', updatedGoal);
       onGoalUpdate(updatedGoal);
@@ -51,7 +50,7 @@ useEffect(() => {
     if (selectedGoal) {
       const updatedGoal = {
         ...selectedGoal,
-        current_goal_prompt: value
+        current_goal_prompt: value,
       };
       console.log('Updating goal prompt:', updatedGoal);
       onGoalUpdate(updatedGoal);
@@ -66,10 +65,10 @@ useEffect(() => {
 
     // Check rate limit before proceeding
     if (!ClientRateLimiter.checkLimit()) {
-        setError('Rate limit exceeded. Please try again later.');
-        setRemainingRequests(ClientRateLimiter.getRemainingRequests());
-        return;
-        }
+      setError('Rate limit exceeded. Please try again later.');
+      setRemainingRequests(ClientRateLimiter.getRemainingRequests());
+      return;
+    }
 
     setIsLoading(true);
     setError('');
@@ -93,9 +92,8 @@ useEffect(() => {
       const result: TaskListResponse = await response.json();
       onTaskListResponse(result, 'new');
 
-    // Update remaining requests after successful translation
-    setRemainingRequests(ClientRateLimiter.getRemainingRequests());
-
+      // Update remaining requests after successful translation
+      setRemainingRequests(ClientRateLimiter.getRemainingRequests());
     } catch (err) {
       console.error('API error:', err);
       setError(err instanceof Error ? err.message : 'API failed');
@@ -112,10 +110,10 @@ useEffect(() => {
 
     // Check rate limit before proceeding
     if (!ClientRateLimiter.checkLimit()) {
-        setError('Rate limit exceeded. Please try again later.');
-        setRemainingRequests(ClientRateLimiter.getRemainingRequests());
-        return;
-        }
+      setError('Rate limit exceeded. Please try again later.');
+      setRemainingRequests(ClientRateLimiter.getRemainingRequests());
+      return;
+    }
 
     setIsLoading(true);
     setError('');
@@ -139,15 +137,14 @@ useEffect(() => {
       const result: TaskListResponse = await response.json();
       onTaskListResponse(result, 'additional');
 
-    // Update remaining requests after successful translation
-    setRemainingRequests(ClientRateLimiter.getRemainingRequests());
-
+      // Update remaining requests after successful translation
+      setRemainingRequests(ClientRateLimiter.getRemainingRequests());
     } catch (err) {
       console.error('API error:', err);
       setError(err instanceof Error ? err.message : 'API failed');
     } finally {
-        setIsLoading(false);
-      }
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -163,8 +160,8 @@ useEffect(() => {
               fontWeight: 'bold',
               border: 'none',
               backgroundColor: 'transparent',
-              padding: '0'
-            }
+              padding: '0',
+            },
           }}
           placeholder="Untitled_01"
         />
@@ -205,8 +202,8 @@ useEffect(() => {
           </Text>
         )}
         <Text c="dimmed" ta="center" size="sm" maw={580} mx="auto" mt="xl">
-        You have {remainingRequests} task generation attempts remaining.
-      </Text>
+          You have {remainingRequests} task generation attempts remaining.
+        </Text>
       </Stack>
     </div>
   );

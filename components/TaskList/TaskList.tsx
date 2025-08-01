@@ -24,16 +24,14 @@ export function TaskList({ selectedGoal, onGoalUpdate }: TaskListProps) {
     if (!selectedGoal) return;
 
     const updatedTasks = tasks.map((task, index) =>
-      index === taskIndex
-        ? { ...task, task_status: checked }
-        : task
+      index === taskIndex ? { ...task, task_status: checked } : task
     );
 
     setTasks(updatedTasks);
 
     const updatedGoal = {
       ...selectedGoal,
-      tasks: updatedTasks
+      tasks: updatedTasks,
     };
 
     onGoalUpdate(updatedGoal);
@@ -53,7 +51,7 @@ export function TaskList({ selectedGoal, onGoalUpdate }: TaskListProps) {
       task_status: false,
       openai_response_id: taskListResponse.response_id,
       order: goalTask.order,
-      created_datetime: new Date().toISOString()
+      created_datetime: new Date().toISOString(),
     }));
 
     const updatedTasks = [...tasks, ...newTasks];
@@ -61,7 +59,7 @@ export function TaskList({ selectedGoal, onGoalUpdate }: TaskListProps) {
 
     const updatedGoal = {
       ...selectedGoal,
-      tasks: updatedTasks
+      tasks: updatedTasks,
     };
 
     onGoalUpdate(updatedGoal);
@@ -77,7 +75,9 @@ export function TaskList({ selectedGoal, onGoalUpdate }: TaskListProps) {
 
   return (
     <div style={{ padding: '20px' }}>
-      <Title order={4} mb="md">Tasks</Title>
+      <Title order={4} mb="md">
+        Tasks
+      </Title>
 
       {tasks.length > 0 ? (
         <Stack gap="sm">

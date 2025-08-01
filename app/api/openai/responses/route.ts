@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { zodTextFormat } from "openai/helpers/zod";
-import { z } from "zod";
+import { zodTextFormat } from 'openai/helpers/zod';
+import { z } from 'zod';
 import { MODEL } from '@/app/config/constants';
 import { InputValidator, ServerRateLimiter } from '@/app/lib/utils/api-helpers';
 
@@ -64,18 +64,16 @@ export async function POST(request: NextRequest) {
     const instructions: string =
       "You are an expert organiser. You have excellent understanding of all topics and your main function is to break down goals into managable, clear and concise tasks. Ensure you don't generate more than 5 tasks per goal. Each task should only be one sentance (maximum) to describe the task.";
 
-      const GoalTasks = z.object({
-        order: z.number(),
-        task: z.string()
-      })
+    const GoalTasks = z.object({
+      order: z.number(),
+      task: z.string(),
+    });
 
-      const TaskList = z.object({
-        goal: z.string(),
-        goal_name: z.string(),
-        tasks: z.array(GoalTasks)
-      })
-
-
+    const TaskList = z.object({
+      goal: z.string(),
+      goal_name: z.string(),
+      tasks: z.array(GoalTasks),
+    });
 
     const response = await client.responses.parse({
       model: MODEL,
@@ -86,7 +84,7 @@ export async function POST(request: NextRequest) {
       ###
       `,
       text: {
-        format: zodTextFormat(TaskList, "task_breakdown"),
+        format: zodTextFormat(TaskList, 'task_breakdown'),
       },
     });
 
