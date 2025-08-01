@@ -1,10 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button, Text, TextInput, Title, List } from '@mantine/core';
+import { Button, Text, TextInput, List } from '@mantine/core';
 import { ClientRateLimiter } from '@/app/lib/utils/api-helpers';
 import { TaskList } from '@/app/lib/api/types';
-import classes from './Welcome.module.css';
 
 export function Welcome() {
   const [input, setInput] = useState('');
@@ -73,13 +72,6 @@ export function Welcome() {
 
   return (
     <>
-      <Title className={classes.title} ta="center" mt={100}>
-        To{' '}
-        <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
-          Do
-        </Text>
-      </Title>
-
       <div style={{ maxWidth: 600, margin: '20px auto', padding: '20px' }}>
         <TextInput
           value={input}

@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
 
       const TaskList = z.object({
         goal: z.string(),
+        goal_name: z.string(),
         tasks: z.array(GoalTasks)
       })
 
@@ -96,6 +97,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       response: response.output_parsed || 'Response recieved',
       originalInput: input,
+      response_id: response.id,
       remainingRequests: ServerRateLimiter.getRemaining(ip),
     });
   } catch (error) {
