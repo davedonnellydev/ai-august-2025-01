@@ -4,7 +4,7 @@
 
 **📆 Date**: 01/Aug/2025  
 **🎯 Project Objective**: Build a to-do list app that uses AI to suggest tasks based on user goals or previous entries.   
-**🚀 Features**: Suggest a task goal, OpenAI splits it into tasks; Able to mark as done, delete, edit; Persist tasks (localStorage is fine for MVP)  
+**🚀 Features**: User to suggest a task goal, OpenAI splits it into tasks; User can mark tasks as done, delete, edit, add more; Persist tasks (localStorage is fine for MVP)  
 **🛠️ Tech used**: Next.js, TypeScript, OpenAI API  
 **▶️ Live Demo**: *[https://your-demo-url.com](https://your-demo-url.com)*  
 *(Link will be added after deployment)*  
