@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button, Text, TextInput, Title } from '@mantine/core';
+import { Button, Text, TextInput, Title, List } from '@mantine/core';
 import { ClientRateLimiter } from '@/app/lib/utils/api-helpers';
+import { TaskList } from '@/app/lib/api/types';
 import classes from './Welcome.module.css';
 
 export function Welcome() {
   const [input, setInput] = useState('');
-  const [response, setResponse] = useState('');
+  const [response, setResponse] = useState<TaskList | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [remainingRequests, setRemainingRequests] = useState(0);
@@ -51,6 +52,7 @@ export function Welcome() {
       }
 
       const result = await response.json();
+      console.log(result.response);
       setResponse(result.response);
 
       // Update remaining requests after successful translation
@@ -65,16 +67,16 @@ export function Welcome() {
 
   const handleReset = () => {
     setInput('');
-    setResponse('');
+    setResponse(null);
     setError('');
   };
 
   return (
     <>
       <Title className={classes.title} ta="center" mt={100}>
-        Welcome to your{' '}
+        To{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
-          Starter
+          Do
         </Text>
       </Title>
 
@@ -84,12 +86,12 @@ export function Welcome() {
           onChange={(event) => setInput(event.currentTarget.value)}
           size="md"
           radius="md"
-          label="Ask a Question"
-          placeholder="How big is the earth?"
+          label="Write your goal:"
+          placeholder="Clean the kitchen"
         />
 
         <Button variant="filled" color="cyan" onClick={() => handleRequest()} loading={isLoading}>
-          Ask Question
+          Break down goal
         </Button>
         <Button variant="light" color="cyan" onClick={() => handleReset()}>
           Reset
@@ -103,7 +105,10 @@ export function Welcome() {
 
         {response && (
           <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
-            Answer: {response}
+            Goal: {response.goal}
+            <List>
+                {response.tasks.map(task => <List.Item key={task.order}>{task.task}</List.Item>)}
+            </List>
           </Text>
         )}
       </div>

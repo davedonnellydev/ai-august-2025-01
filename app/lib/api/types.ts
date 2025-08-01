@@ -30,3 +30,12 @@ export interface ProxyConfig {
   retries?: number;
   cache?: boolean;
 }
+
+export interface GoalTasks {
+    order: number;
+    task: string;
+}
+export interface TaskList {
+    goal: string;
+    tasks: GoalTasks[]
+}

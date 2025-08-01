@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { zodTextFormat } from "openai/helpers/zod";
+import { z } from "zod";
 import { MODEL } from '@/app/config/constants';
 import { InputValidator, ServerRateLimiter } from '@/app/lib/utils/api-helpers';
 
@@ -60,12 +62,31 @@ export async function POST(request: NextRequest) {
     }
 
     const instructions: string =
-      'You are a helpful assistant who knows general knowledge about the world. Keep your responses to one or two sentances, maximum.';
+      "You are an expert organiser. You have excellent understanding of all topics and your main function is to break down goals into managable, clear and concise tasks. Ensure you don't generate more than 5 tasks per goal. Each task should only be one sentance (maximum) to describe the task.";
 
-    const response = await client.responses.create({
+      const GoalTasks = z.object({
+        order: z.number(),
+        task: z.string()
+      })
+
+      const TaskList = z.object({
+        goal: z.string(),
+        tasks: z.array(GoalTasks)
+      })
+
+
+
+    const response = await client.responses.parse({
       model: MODEL,
       instructions,
-      input,
+      input: `I have a goal described between the ### characters. Break that goal down into a maximum of 5 separate tasks:
+      ###
+      ${input}
+      ###
+      `,
+      text: {
+        format: zodTextFormat(TaskList, "task_breakdown"),
+      },
     });
 
     if (response.status !== 'completed') {
@@ -73,7 +94,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({
-      response: response.output_text || 'Response recieved',
+      response: response.output_parsed || 'Response recieved',
       originalInput: input,
       remainingRequests: ServerRateLimiter.getRemaining(ip),
     });
