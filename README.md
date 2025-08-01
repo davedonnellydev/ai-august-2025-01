@@ -10,14 +10,22 @@
 *(Link will be added after deployment)*  
 
 ## 🗒️ Summary
-**Lessons learned**  
-*A little summary of learnings*  
+
+An interesting first day. I got a MVP up and running with barebones features of: User being able to enter a goal and get AI to break it down into up to 5 separate tasks. Users can mark tasks as done, and users can either regenerate new list of tasks or they can add more tasks based on updated goal. Goal and tasks save to localStorage. There's also a reset button which clears all goal/task data on local storage. I didn't get a chance to implement basic features like editing the tasks, deleting individual tasks or goals, or reordering / sorting tasks or goals but I'm pretty happy with where I landed for my first attempt.
+I was using OpenAI's Responses API, which I've used before, but was implementing a feature I hadn't come across yet called [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses), which was exactly the kind of thing I needed.
 
 **Blockers**  
-*Note any blockers here*  
+- Lack of planning: I hadn't spent enough time planning the flow of the app at the start of the day, nor had I really thought through the structures of the data I needed to use in order to get the app working in the flow I thought up.
+- Lack of knowledge on how the UI elements worked: This was my first time using Mantine UI and I hadn't given myself enough time to read through all the guidance materials to know what was possible and how things should be structured. Given the time limits, the 'day of' wasn't really the time to be delving into all that.
+- Time/Overcomplication of app features: I wanted a lot out of this first one, there were so many more features I wanted to implement but I could really only get through so much before I had to call it a day. I fear time will always be an enemy here.
+
+**Lessons learned**  
+
+- Spend more time planning! I was a little too excited to get started with the building/playing with the OpenAI API. About halfway through the day I noticed I was stabbing around in the dark a bit, trying to figure out how this app was going to function. I realised I failed to invest enough time in planning at the start of the day. I took some time out to gather my thoughts, detail the data structures a bit more and plan out the app's UX in a little bit more detail than I had at the start of the day.
+- Lean on AI. Yes, this challenge is about what AI tools are out there and how I can incorporate them into apps, but the other focus is to see how far I can get in my day to day engineering with the help of AI. Using Cursor.ai to build today's project, I'm eager to discover what it's strengths and weaknesses are! Today I fell into the trap of trying to wrangle the details too much (when I just don't have time!) rather than give the AI a chance to build my app for me.
 
 **Final thoughts**  
-*Any final thoughts here*  
+I'm pretty happy with how it turned out, despite lack of a few vital functions. I have a much better idea of how to tackle these workdays going forward. Looking forward to Monday's challenge!  
 
 
 This project has been built as part of my AI August App-A-Day Challenge. You can read more information on the full project here: [https://github.com/davedonnellydev/ai-august-2025-challenge](https://github.com/davedonnellydev/ai-august-2025-challenge).  
