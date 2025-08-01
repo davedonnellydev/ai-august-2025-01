@@ -7,7 +7,6 @@
 **🚀 Features**: User to suggest a task goal, OpenAI splits it into tasks; User can mark tasks as done, delete, edit, add more; Persist tasks (localStorage is fine for MVP)  
 **🛠️ Tech used**: Next.js, TypeScript, OpenAI API  
 **▶️ Live Demo**: *[https://dave-donnelly-ai-august-01.netlify.app/](https://dave-donnelly-ai-august-01.netlify.app/)*  
-*(Link will be added after deployment)*  
 
 ## 🗒️ Summary
 
