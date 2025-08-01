@@ -124,8 +124,6 @@ async function handleProxyRequest(
       headers: responseHeaders,
     });
   } catch (error) {
-    console.error('Proxy error:', error);
-
     if (error instanceof Error && error.name === 'AbortError') {
       return NextResponse.json({ error: 'Request timeout' }, { status: 408 });
     }

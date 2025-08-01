@@ -1,31 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Button, Stack, Text, Title } from '@mantine/core';
 import { Goal } from '@/app/lib/api/types';
 
 interface GoalListProps {
   onGoalSelect: (goal: Goal) => void;
   onGoalsUpdate: (goals: Goal[]) => void;
+  goals: Goal[];
 }
 
-export function GoalList({ onGoalSelect, onGoalsUpdate }: GoalListProps) {
-  const [goals, setGoals] = useState<Goal[]>([]);
-
-  useEffect(() => {
-    // Check localStorage for stored goals on component mount
-    const storedGoals = localStorage.getItem('goals');
-    if (storedGoals) {
-      try {
-        const parsedGoals = JSON.parse(storedGoals) as Goal[];
-        setGoals(parsedGoals);
-        onGoalsUpdate(parsedGoals);
-      } catch (error) {
-        console.error('Error parsing stored goals:', error);
-      }
-    }
-  }, []); // Only run on mount
-
+export function GoalList({ onGoalSelect, onGoalsUpdate, goals }: GoalListProps) {
   const handleNewGoal = () => {
     const now = new Date().toISOString();
 
@@ -36,7 +20,7 @@ export function GoalList({ onGoalSelect, onGoalsUpdate }: GoalListProps) {
     if (untitledGoals.length > 0) {
       const numbers = untitledGoals.map((goal) => {
         const match = goal.current_goal_name?.match(/Untitled_(\d+)/);
-        return match ? parseInt(match[1]) : 0;
+        return match ? parseInt(match[1], 10) : 0;
       });
       nextNumber = Math.max(...numbers) + 1;
     }
@@ -52,10 +36,9 @@ export function GoalList({ onGoalSelect, onGoalsUpdate }: GoalListProps) {
       created_datetime: now,
     };
 
-    console.log('Creating new goal:', newGoal);
+    // Creating new goal
 
     const updatedGoals = [...goals, newGoal];
-    setGoals(updatedGoals);
     onGoalsUpdate(updatedGoals);
 
     // Select the new goal
@@ -70,16 +53,13 @@ export function GoalList({ onGoalSelect, onGoalsUpdate }: GoalListProps) {
     // Clear goals from localStorage
     localStorage.removeItem('goals');
 
-    // Update local state
-    setGoals([]);
-
     // Update parent state
     onGoalsUpdate([]);
 
     // Clear selected goal
     onGoalSelect(null as any);
 
-    console.log('All goals cleared from localStorage');
+    // All goals cleared from localStorage
   };
 
   return (

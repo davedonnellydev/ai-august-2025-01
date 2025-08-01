@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppShell, Burger, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Goal, TaskListResponse } from '@/app/lib/api/types';
@@ -14,12 +14,24 @@ export default function HomePage() {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
 
+  // Load goals from localStorage on mount
+  useEffect(() => {
+    const storedGoals = localStorage.getItem('goals');
+    if (storedGoals) {
+      try {
+        const parsedGoals = JSON.parse(storedGoals) as Goal[];
+        setGoals(parsedGoals);
+      } catch (error) {
+        // Error parsing stored goals
+      }
+    }
+  }, []);
+
   const handleGoalSelect = (goal: Goal) => {
     setSelectedGoal(goal);
   };
 
   const handleGoalsUpdate = (updatedGoals: Goal[]) => {
-    console.log('Updating goals in parent:', updatedGoals);
     setGoals(updatedGoals);
     localStorage.setItem('goals', JSON.stringify(updatedGoals));
   };
@@ -42,7 +54,7 @@ export default function HomePage() {
       const responseData = response.response;
 
       if (typeof responseData !== 'string' && responseData.tasks) {
-        const newTasks = responseData.tasks.map((goalTask, index) => ({
+        const newTasks = responseData.tasks.map((goalTask, _index) => ({
           task_description: goalTask.task,
           task_status: false,
           openai_response_id: response.response_id,
@@ -89,7 +101,7 @@ export default function HomePage() {
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <GoalList onGoalSelect={handleGoalSelect} onGoalsUpdate={handleGoalsUpdate} />
+        <GoalList goals={goals} onGoalSelect={handleGoalSelect} onGoalsUpdate={handleGoalsUpdate} />
       </AppShell.Navbar>
 
       <AppShell.Main>

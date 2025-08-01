@@ -6,7 +6,7 @@
 **🎯 Project Objective**: Build a to-do list app that uses AI to suggest tasks based on user goals or previous entries.   
 **🚀 Features**: User to suggest a task goal, OpenAI splits it into tasks; User can mark tasks as done, delete, edit, add more; Persist tasks (localStorage is fine for MVP)  
 **🛠️ Tech used**: Next.js, TypeScript, OpenAI API  
-**▶️ Live Demo**: *[https://your-demo-url.com](https://your-demo-url.com)*  
+**▶️ Live Demo**: *[https://dave-donnelly-ai-august-01.netlify.app/](https://dave-donnelly-ai-august-01.netlify.app/)*  
 *(Link will be added after deployment)*  
 
 ## 🗒️ Summary
@@ -21,7 +21,7 @@ I was using OpenAI's Responses API, which I've used before, but was implementing
 
 **Lessons learned**  
 
-- Spend more time planning! I was a little too excited to get started with the building/playing with the OpenAI API. About halfway through the day I noticed I was stabbing around in the dark a bit, trying to figure out how this app was going to function. I realised I failed to invest enough time in planning at the start of the day. I took some time out to gather my thoughts, detail the data structures a bit more and plan out the app's UX in a little bit more detail than I had at the start of the day.
+- Spend more time planning! I was a little too excited to get started with the building/playing with the OpenAI API. About halfway through the day I noticed I was stabbing around in the dark a bit, trying to figure out how this app was going to function. I realised I failed to invest enough time in planning at the start of the day. I took some time out to gather my thoughts, detail the data structures a bit more and plan out the app's UX in a little bit more detail than I had at the start of the day. (Diagram [here](/AIAugust%20Project-01.drawio.png))
 - Lean on AI. Yes, this challenge is about what AI tools are out there and how I can incorporate them into apps, but the other focus is to see how far I can get in my day to day engineering with the help of AI. Using Cursor.ai to build today's project, I'm eager to discover what it's strengths and weaknesses are! Today I fell into the trap of trying to wrangle the details too much (when I just don't have time!) rather than give the AI a chance to build my app for me.
 
 **Final thoughts**  

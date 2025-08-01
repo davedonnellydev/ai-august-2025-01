@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Checkbox, Stack, Text, Title } from '@mantine/core';
-import { Goal, Task, TaskListResponse } from '@/app/lib/api/types';
+import { Goal, Task } from '@/app/lib/api/types';
 
 interface TaskListProps {
   selectedGoal: Goal | null;
@@ -21,7 +21,9 @@ export function TaskList({ selectedGoal, onGoalUpdate }: TaskListProps) {
   }, [selectedGoal]);
 
   const handleTaskStatusChange = (taskIndex: number, checked: boolean) => {
-    if (!selectedGoal) return;
+    if (!selectedGoal) {
+      return;
+    }
 
     const updatedTasks = tasks.map((task, index) =>
       index === taskIndex ? { ...task, task_status: checked } : task
@@ -37,40 +39,8 @@ export function TaskList({ selectedGoal, onGoalUpdate }: TaskListProps) {
     onGoalUpdate(updatedGoal);
   };
 
-  const addTasksFromResponse = (taskListResponse: TaskListResponse) => {
-    if (!selectedGoal) return;
-
-    const response = taskListResponse.response;
-    if (typeof response === 'string') {
-      console.error('Unexpected string response from API');
-      return;
-    }
-
-    const newTasks: Task[] = response.tasks.map((goalTask, index) => ({
-      task_description: goalTask.task,
-      task_status: false,
-      openai_response_id: taskListResponse.response_id,
-      order: goalTask.order,
-      created_datetime: new Date().toISOString(),
-    }));
-
-    const updatedTasks = [...tasks, ...newTasks];
-    setTasks(updatedTasks);
-
-    const updatedGoal = {
-      ...selectedGoal,
-      tasks: updatedTasks,
-    };
-
-    onGoalUpdate(updatedGoal);
-  };
-
   if (!selectedGoal) {
-    return (
-      <div style={{ padding: '20px' }}>
-        <Text c="dimmed">Select a goal to view tasks</Text>
-      </div>
-    );
+    return;
   }
 
   return (

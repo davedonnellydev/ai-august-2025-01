@@ -34,28 +34,38 @@ describe('GoalList component', () => {
   });
 
   it('renders the goals title', () => {
-    render(<GoalList onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />);
+    render(
+      <GoalList goals={[]} onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />
+    );
     expect(screen.getByText('Goals')).toBeInTheDocument();
   });
 
   it('renders "New Goal" button', () => {
-    render(<GoalList onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />);
+    render(
+      <GoalList goals={[]} onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />
+    );
     expect(screen.getByText('New Goal')).toBeInTheDocument();
   });
 
   it('renders "Reset All Goals" button', () => {
-    render(<GoalList onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />);
+    render(
+      <GoalList goals={[]} onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />
+    );
     expect(screen.getByText('Reset All Goals')).toBeInTheDocument();
   });
 
   it('shows "No goals yet" when no goals exist', () => {
-    render(<GoalList onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />);
+    render(
+      <GoalList goals={[]} onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />
+    );
     expect(screen.getByText('No goals yet')).toBeInTheDocument();
   });
 
   it('creates a new goal when "New Goal" button is clicked', async () => {
     const user = userEvent.setup();
-    render(<GoalList onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />);
+    render(
+      <GoalList goals={[]} onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />
+    );
 
     const newGoalButton = screen.getByText('New Goal');
     await user.click(newGoalButton);
@@ -70,7 +80,9 @@ describe('GoalList component', () => {
 
   it('resets all goals when "Reset All Goals" button is clicked', async () => {
     const user = userEvent.setup();
-    render(<GoalList onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />);
+    render(
+      <GoalList goals={[]} onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />
+    );
 
     const resetButton = screen.getByText('Reset All Goals');
     await user.click(resetButton);
@@ -79,13 +91,15 @@ describe('GoalList component', () => {
     expect(mockOnGoalsUpdate).toHaveBeenCalledWith([]);
   });
 
-  it('loads goals from localStorage on mount', () => {
-    const storedGoals = JSON.stringify([mockGoal]);
-    localStorageMock.getItem.mockReturnValue(storedGoals);
+  it('displays goals passed from parent', () => {
+    render(
+      <GoalList
+        goals={[mockGoal]}
+        onGoalSelect={mockOnGoalSelect}
+        onGoalsUpdate={mockOnGoalsUpdate}
+      />
+    );
 
-    render(<GoalList onGoalSelect={mockOnGoalSelect} onGoalsUpdate={mockOnGoalsUpdate} />);
-
-    expect(localStorageMock.getItem).toHaveBeenCalledWith('goals');
-    expect(mockOnGoalsUpdate).toHaveBeenCalledWith([mockGoal]);
+    expect(screen.getByText('Test Goal')).toBeInTheDocument();
   });
 });

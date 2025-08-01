@@ -147,7 +147,7 @@ describe('GoalEditor component', () => {
     );
   });
 
-  it('disables buttons when no goal is selected', () => {
+  it('shows message when no goal is selected', () => {
     render(
       <GoalEditor
         selectedGoal={null}
@@ -156,8 +156,7 @@ describe('GoalEditor component', () => {
       />
     );
 
-    expect(screen.getByRole('button', { name: 'Generate New Tasks' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Add to Current Tasks' })).toBeDisabled();
+    expect(screen.getByText('Add a new goal or select one from the side to begin!')).toBeInTheDocument();
   });
 
   it('calls API when "Generate New Tasks" is clicked', async () => {

@@ -42,9 +42,10 @@ describe('TaskList component', () => {
     expect(screen.getByText('Tasks')).toBeInTheDocument();
   });
 
-  it('shows "Select a goal to view tasks" when no goal is selected', () => {
-    render(<TaskList selectedGoal={null} onGoalUpdate={mockOnGoalUpdate} />);
-    expect(screen.getByText('Select a goal to view tasks')).toBeInTheDocument();
+  it('renders nothing when no goal is selected', () => {
+    const { container } = render(<TaskList selectedGoal={null} onGoalUpdate={mockOnGoalUpdate} />);
+    // The component returns null, so there should be no content except Mantine styles
+    expect(container.querySelector('div')).toBeNull();
   });
 
   it('shows "No tasks yet" when goal has no tasks', () => {

@@ -40,7 +40,6 @@ export function GoalEditor({ selectedGoal, onGoalUpdate, onTaskListResponse }: G
         ...selectedGoal,
         current_goal_name: value,
       };
-      console.log('Updating goal name:', updatedGoal);
       onGoalUpdate(updatedGoal);
     }
   };
@@ -52,14 +51,12 @@ export function GoalEditor({ selectedGoal, onGoalUpdate, onTaskListResponse }: G
         ...selectedGoal,
         current_goal_prompt: value,
       };
-      console.log('Updating goal prompt:', updatedGoal);
       onGoalUpdate(updatedGoal);
     }
   };
 
   const handleGenerateNewTasks = async () => {
     if (!selectedGoal || !goalPrompt.trim()) {
-      console.log('No goal selected or no prompt entered');
       return;
     }
 
@@ -95,7 +92,6 @@ export function GoalEditor({ selectedGoal, onGoalUpdate, onTaskListResponse }: G
       // Update remaining requests after successful translation
       setRemainingRequests(ClientRateLimiter.getRemainingRequests());
     } catch (err) {
-      console.error('API error:', err);
       setError(err instanceof Error ? err.message : 'API failed');
     } finally {
       setIsLoading(false);
@@ -104,7 +100,6 @@ export function GoalEditor({ selectedGoal, onGoalUpdate, onTaskListResponse }: G
 
   const handleAddToCurrentTasks = async () => {
     if (!selectedGoal || !goalPrompt.trim()) {
-      console.log('No goal selected or no prompt entered');
       return;
     }
 
@@ -140,12 +135,19 @@ export function GoalEditor({ selectedGoal, onGoalUpdate, onTaskListResponse }: G
       // Update remaining requests after successful translation
       setRemainingRequests(ClientRateLimiter.getRemainingRequests());
     } catch (err) {
-      console.error('API error:', err);
       setError(err instanceof Error ? err.message : 'API failed');
     } finally {
       setIsLoading(false);
     }
   };
+
+  if (!selectedGoal) {
+    return (
+      <div style={{ padding: '20px' }}>
+        <Text c="dimmed">Add a new goal or select one from the side to begin!</Text>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: '20px' }}>
